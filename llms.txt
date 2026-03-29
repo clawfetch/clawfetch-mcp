@@ -1,0 +1,23 @@
+# ClawFetch MCP Server
+
+> MCP server providing web intelligence tools for AI agents via ClawFetch API with x402 micropayments.
+
+## Tools
+
+- fetch_url: Fetch URL as clean markdown ($0.001)
+- render_page: JS-render pages via stealth browser ($0.002)
+- extract_data: Structured data from 17+ site types ($0.003)
+- research_topic: Multi-source research with citations ($0.01)
+- check_domains: Domain availability check ($0.002)
+- suggest_domains: Domain name suggestions ($0.002)
+- list_extractors: Available data extractors ($0.001)
+- health_check: API status (free)
+- wallet_info: Payment wallet address (free)
+
+## Setup
+
+Requires CLAWFETCH_PRIVATE_KEY env var (Ethereum key for USDC payments on Base).
+
+## Transport
+
+Supports stdio (default) and HTTP (Streamable HTTP) transports.
