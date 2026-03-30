@@ -6,5 +6,7 @@ export default defineConfig({
   dts: false,
   clean: true,
   target: 'node18',
-  banner: { js: '#!/usr/bin/env node' },
+  // Don't bundle express and node builtins — CJS require() breaks in ESM bundle
+  noExternal: [],
+  external: ['express'],
 });

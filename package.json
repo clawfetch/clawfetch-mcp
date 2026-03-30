@@ -8,7 +8,7 @@
     "clawfetch-mcp": "dist/index.js"
   },
   "scripts": {
-    "build": "tsup src/index.ts --format esm --dts",
+    "build": "tsup src/index.ts --format esm --no-dts",
     "test": "vitest run",
     "test:watch": "vitest",
     "dev": "tsx src/index.ts"
