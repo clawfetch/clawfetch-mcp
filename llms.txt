@@ -1,23 +1,43 @@
 # ClawFetch MCP Server
+> MCP server for AI agents to access web intelligence via ClawFetch API with x402 micropayments (USDC on Base).
+> Install: npm install -g @clawfetch/mcp
+> Website: https://clawfetch.ai
+> Transport: stdio (default) | Streamable HTTP (for remote/multi-session)
 
-> MCP server providing web intelligence tools for AI agents via ClawFetch API with x402 micropayments.
+## Tools (9 total)
 
-## Tools
+### Web Fetching
+- fetch_url: Fetch any URL as clean markdown. Cost: $0.001
+- render_page: Render JS-heavy pages (SPAs, React, dynamic content) via headless browser. Cost: $0.002
 
-- fetch_url: Fetch URL as clean markdown ($0.001)
-- render_page: JS-render pages via stealth browser ($0.002)
-- extract_data: Structured data from 17+ site types ($0.003)
-- research_topic: Multi-source research with citations ($0.01)
-- check_domains: Domain availability check ($0.002)
-- suggest_domains: Domain name suggestions ($0.002)
-- list_extractors: Available data extractors ($0.001)
-- health_check: API status (free)
-- wallet_info: Payment wallet address (free)
+### Structured Data Extraction
+- extract_data: Extract typed data from 17+ site types (GitHub repos/profiles, npm/PyPI packages, X/Twitter profiles, LinkedIn, YouTube, Product Hunt, Hacker News, Reddit, Crunchbase, Wikipedia). Cost: $0.003
+- list_extractors: List all supported extractor types and their output schemas. Cost: $0.001
+
+### Research
+- research_topic: Multi-source research with citations — synthesizes information from multiple web sources. Cost: $0.01
+
+### Domain Intelligence
+- check_domains: Check availability of specific domain names (up to 10 at once). Cost: $0.002
+- suggest_domains: Generate available domain name suggestions for a concept/keyword. Cost: $0.002
+
+### Utility
+- health_check: Check ClawFetch API health status. Free.
+- wallet_info: Show the payment wallet address and balance info. Free.
 
 ## Setup
+Requires CLAWFETCH_PRIVATE_KEY env var — an Ethereum private key (0x-prefixed) for x402 micropayments.
+Fund the corresponding address with USDC on Base mainnet.
+No API keys. No billing dashboards. Pay-per-use via x402 protocol.
 
-Requires CLAWFETCH_PRIVATE_KEY env var (Ethereum key for USDC payments on Base).
+## Configuration
+| Variable | Default | Description |
+|---|---|---|
+| CLAWFETCH_PRIVATE_KEY | (required) | Ethereum private key for x402 payments |
+| CLAWFETCH_BASE_URL | https://api.clawfetch.ai | API endpoint |
+| CLAWFETCH_TRANSPORT | stdio | Transport: stdio or http |
+| CLAWFETCH_PORT | 3001 | HTTP server port |
+| CLAWFETCH_TIMEOUT_MS | 60000 | Request timeout |
 
-## Transport
-
-Supports stdio (default) and HTTP (Streamable HTTP) transports.
+## Pricing
+$1 USDC gets you: 1,000 page fetches, 500 JS renders, 333 data extractions, or 100 research queries.

@@ -2,28 +2,62 @@
   "name": "@clawfetch/mcp",
   "version": "0.1.0",
   "type": "module",
-  "description": "MCP server for AI agents to use ClawFetch — Web Intelligence API (x402-native)",
+  "description": "MCP server for AI agents to use ClawFetch — Web Intelligence API with x402 micropayments (USDC on Base)",
   "main": "dist/index.js",
   "bin": {
     "clawfetch-mcp": "dist/index.js"
   },
+  "files": [
+    "dist",
+    "README.md",
+    "llms.txt",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsup src/index.ts --format esm --no-dts",
     "test": "vitest run",
     "test:watch": "vitest",
-    "dev": "tsx src/index.ts"
+    "dev": "tsx src/index.ts",
+    "prepublishOnly": "npm run build && npm test"
   },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "web-intelligence",
+    "x402",
+    "clawfetch",
+    "web-scraping",
+    "structured-data",
+    "domain-check",
+    "research"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clawfetch/clawfetch-mcp.git"
+  },
+  "homepage": "https://clawfetch.ai",
+  "bugs": {
+    "url": "https://github.com/clawfetch/clawfetch-mcp/issues"
+  },
+  "author": "ClawFetch <hello@clawfetch.ai>",
   "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
   "dependencies": {
-    "@clawfetch/sdk": "file:../clawfetch-sdk",
     "@modelcontextprotocol/sdk": "^1.28.0",
+    "express": "^5.1.0",
+    "viem": "^2.47.6",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@clawfetch/sdk": "file:../clawfetch-sdk",
     "@types/express": "^5.0.6",
     "@types/node": "^25.5.0",
     "tsup": "^8.5.1",
     "tsx": "^4.21.0",
     "typescript": "^6.0.2",
-    "viem": "^2.47.6",
-    "vitest": "^4.1.2",
-    "zod": "^4.3.6"
+    "vitest": "^4.1.2"
   }
 }
