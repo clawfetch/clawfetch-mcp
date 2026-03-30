@@ -6,6 +6,8 @@ import { registerResearchTools } from './tools/research.js';
 import { registerDomainTools } from './tools/domains.js';
 import { registerExtractTools } from './tools/extract.js';
 import { registerUtilityTools } from './tools/utility.js';
+import { registerResources } from './resources/index.js';
+import { registerPrompts } from './prompts/index.js';
 
 export interface ClawFetchMcpConfig {
   /** Ethereum private key for x402 payments */
@@ -28,14 +30,21 @@ export function createServer(config: ClawFetchMcpConfig): McpServer {
 
   const server = new McpServer({
     name: 'clawfetch',
-    version: '0.1.0',
+    version: '0.2.0',
   });
 
+  // Tools
   registerFetchTools(server, client);
   registerResearchTools(server, client);
   registerDomainTools(server, client);
   registerExtractTools(server, client);
   registerUtilityTools(server, client);
+
+  // Resources (pricing, extractors, wallet, usage)
+  registerResources(server, client);
+
+  // Prompt templates (research, competitive analysis, domain hunting, site audit)
+  registerPrompts(server);
 
   return server;
 }

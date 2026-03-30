@@ -5,6 +5,21 @@ All notable changes to `@clawfetch/mcp` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2026-03-30
+
+### Added
+- **4 MCP resources** for agent discovery and session monitoring:
+  - `clawfetch://pricing` — endpoint pricing table with x402 payment flow details
+  - `clawfetch://extractors` — live list of supported structured data extractors with domains and fields
+  - `clawfetch://wallet` — wallet address, network, and balance link for x402 payments
+  - `clawfetch://usage` — per-session request counts and estimated cost tracking
+- **4 MCP prompt templates** for guided multi-tool workflows:
+  - `research-topic` — multi-source research with fetch + extract follow-up ($0.013-$0.022)
+  - `competitive-analysis` — company/product comparison with structured data ($0.02-$0.05)
+  - `domain-hunting` — creative domain name discovery with availability checks ($0.004-$0.010)
+  - `site-audit` — content quality, SEO, and technical analysis ($0.003-$0.006)
+- 14 new tests (resources + prompts), **34 total** (all passing)
+
 ## [0.1.0] - 2026-03-30
 
 ### Added
