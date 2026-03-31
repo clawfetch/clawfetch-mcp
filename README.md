@@ -6,7 +6,55 @@ Gives any MCP-compatible client (Claude Desktop, Cursor, Windsurf, OpenClaw, etc
 
 Payments are handled automatically via the [x402 protocol](https://www.x402.org/) — USDC on Base. No API keys, no billing dashboards.
 
-## Quick Start
+## ☁️ Hosted Mode (Recommended)
+
+Connect directly to the hosted MCP server — no installation required:
+
+**Endpoint:** `https://mcp.clawfetch.ai/mcp`
+
+### Claude Desktop
+
+Add to `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "clawfetch": {
+      "type": "url",
+      "url": "https://mcp.clawfetch.ai/mcp"
+    }
+  }
+}
+```
+
+### Cursor / Windsurf
+
+Add to your MCP configuration:
+
+```json
+{
+  "mcpServers": {
+    "clawfetch": {
+      "url": "https://mcp.clawfetch.ai/mcp"
+    }
+  }
+}
+```
+
+### OpenClaw
+
+```yaml
+mcp:
+  servers:
+    clawfetch:
+      url: https://mcp.clawfetch.ai/mcp
+```
+
+> **Note:** The hosted server handles x402 payments server-side. Tools that require payment (fetch, render, extract, research) will charge USDC on Base per call. Free tools (health_check, wallet_info, list_extractors) work without payment.
+
+## 💻 Self-Hosted Mode
+
+Run your own instance with full control over the payment wallet.
 
 ### Install
 
@@ -14,9 +62,9 @@ Payments are handled automatically via the [x402 protocol](https://www.x402.org/
 npm install -g @clawfetch/mcp
 ```
 
-### Configure
+### Configure (stdio — for local MCP clients)
 
-Add to your MCP client config (e.g., Claude Desktop `claude_desktop_config.json`):
+Add to your MCP client config (e.g., Claude Desktop):
 
 ```json
 {
@@ -31,19 +79,33 @@ Add to your MCP client config (e.g., Claude Desktop `claude_desktop_config.json`
 }
 ```
 
-The private key is used to sign x402 micropayments (USDC on Base). Fund the corresponding address with USDC on Base mainnet.
-
-### Run Standalone (stdio)
-
-```bash
-CLAWFETCH_PRIVATE_KEY=0x... clawfetch-mcp
-```
+The private key signs x402 micropayments (USDC on Base). Fund the corresponding address with USDC on Base mainnet.
 
 ### Run as HTTP Server
+
+Expose the MCP server over HTTP for remote clients:
 
 ```bash
 CLAWFETCH_PRIVATE_KEY=0x... CLAWFETCH_TRANSPORT=http CLAWFETCH_PORT=3001 clawfetch-mcp
 ```
+
+This starts a server at `http://localhost:3001/mcp` using the Streamable HTTP transport (MCP spec compliant).
+
+#### HTTP Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/mcp` | POST | Initialize session — returns `Mcp-Session-Id` header |
+| `/mcp` | GET | SSE stream for server-to-client notifications (requires session ID) |
+| `/mcp` | DELETE | Close a session |
+| `/health` | GET | Server health check (JSON) |
+
+#### Session Flow
+
+1. **Initialize:** `POST /mcp` with JSON-RPC `initialize` request → get `Mcp-Session-Id` header
+2. **Call tools:** `POST /mcp` with `Mcp-Session-Id` header + JSON-RPC `tools/call` request
+3. **Stream:** `GET /mcp?sessionId=...` for SSE notifications (optional)
+4. **Close:** `DELETE /mcp` with `Mcp-Session-Id` header
 
 ## Tools
 
@@ -63,17 +125,21 @@ CLAWFETCH_PRIVATE_KEY=0x... CLAWFETCH_TRANSPORT=http CLAWFETCH_PORT=3001 clawfet
 
 GitHub repos/profiles, npm packages, PyPI packages, Twitter/X profiles, LinkedIn profiles/companies, YouTube videos/channels, Product Hunt, Hacker News, Reddit, Crunchbase, Wikipedia, and more.
 
+Use `list_extractors` to see all available types with their schema.
+
 ## Environment Variables
 
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
-| `CLAWFETCH_PRIVATE_KEY` | Yes | — | Ethereum private key (0x-prefixed) for x402 payments |
+| `CLAWFETCH_PRIVATE_KEY` | Yes* | — | Ethereum private key (0x-prefixed) for x402 payments |
 | `CLAWFETCH_BASE_URL` | No | `https://api.clawfetch.ai` | API base URL |
 | `CLAWFETCH_TRANSPORT` | No | `stdio` | Transport: `stdio` or `http` |
 | `CLAWFETCH_HOST` | No | `0.0.0.0` | HTTP server bind address |
 | `CLAWFETCH_PORT` | No | `3001` | HTTP server port |
 | `CLAWFETCH_TIMEOUT_MS` | No | `60000` | Request timeout in ms |
 | `CLAWFETCH_DEBUG` | No | `false` | Enable debug logging (`1` or `true`) |
+
+\* Required for self-hosted mode. The hosted server at mcp.clawfetch.ai manages its own wallet.
 
 ## Development
 
