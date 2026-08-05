@@ -5,6 +5,11 @@ All notable changes to `@clawfetch/mcp` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2026-08-05
+
+### Added
+- `parse_document` tool — parse office documents (docx, pptx, xlsx, pdf, odt, ods, odp, rtf, epub, csv, doc, ppt) into GitHub-Flavored Markdown via the ClawFetch `POST /parse` endpoint ($0.002). Accepts a document `url` or local file `path`, with optional `format` override. No OCR — scanned/image-only PDFs are rejected.
+
 ## [0.2.0] - 2026-03-30
 
 ### Added

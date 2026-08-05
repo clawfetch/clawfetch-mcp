@@ -45,6 +45,9 @@ vi.mock('@clawfetch/sdk', () => {
         { name: 'npm-package', domains: ['npmjs.com'], description: 'Extract npm package info', fields: ['downloads', 'version'] },
       ];
     }
+    async parse(source: any, opts?: any) {
+      return { markdown: '# Parsed Doc\n\n| a | b |', format: opts?.format ?? 'docx', chars: 24 };
+    }
     async health() {
       return { status: 'ok', version: '1.0.0' };
     }
@@ -83,6 +86,7 @@ describe('MCP Tool Integration Tests', () => {
       'fetch_url',
       'health_check',
       'list_extractors',
+      'parse_document',
       'render_page',
       'research_topic',
       'suggest_domains',
@@ -115,6 +119,23 @@ describe('MCP Tool Integration Tests', () => {
     expect(text).toContain('Source One');
     expect(text).toContain('https://src1.com');
     expect(text).toContain('### Sources');
+  });
+
+  it('parse_document returns markdown from a URL', async () => {
+    const result = await client.callTool({ name: 'parse_document', arguments: { url: 'https://example.com/report.docx' } });
+    const text = (result.content as any[])[0].text;
+
+    expect(text).toContain('Parsed Document (docx, 24 chars)');
+    expect(text).toContain('# Parsed Doc');
+    expect(result.isError).toBeFalsy();
+  });
+
+  it('parse_document errors without url or path', async () => {
+    const result = await client.callTool({ name: 'parse_document', arguments: {} });
+    const text = (result.content as any[])[0].text;
+
+    expect(text).toContain('provide either "url" or "path"');
+    expect(result.isError).toBe(true);
   });
 
   it('extract_data returns structured JSON', async () => {

@@ -117,6 +117,7 @@ This starts a server at `http://localhost:3001/mcp` using the Streamable HTTP tr
 | `research_topic` | Multi-source research with citations | $0.01 |
 | `check_domains` | Check domain name availability | $0.002 |
 | `suggest_domains` | Generate available domain suggestions | $0.002 |
+| `parse_document` | Parse office docs (docx/pptx/xlsx/pdf/…) to markdown | $0.002 |
 | `list_extractors` | List supported structured data extractors | $0.001 |
 | `health_check` | Check API health status | Free |
 | `wallet_info` | Show payment wallet address | Free |

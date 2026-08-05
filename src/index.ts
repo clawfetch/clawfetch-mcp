@@ -6,7 +6,7 @@ import { createServer } from './server.js';
 import type { Hex } from 'viem';
 
 const transport = process.env.CLAWFETCH_TRANSPORT ?? 'stdio';
-const version = '0.2.0';
+const version = '0.3.0';
 
 function getConfig() {
   const privateKey = process.env.CLAWFETCH_PRIVATE_KEY;
