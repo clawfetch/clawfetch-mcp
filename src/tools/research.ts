@@ -9,13 +9,15 @@ export function registerResearchTools(server: McpServer, client: ClawFetch) {
     {
       topic: z.string().describe('The topic or question to research (e.g., "latest developments in AI agent frameworks")'),
       sources: z.number().min(1).max(10).optional().describe('Number of sources to consult (default: 5, max: 10)'),
-      depth: z.enum(['quick', 'normal', 'deep']).optional().describe('Research depth: "quick" (fast overview), "normal" (balanced), "deep" (thorough). Default: "normal".'),
     },
-    async ({ topic, sources, depth }) => {
+    async ({ topic, sources }) => {
       try {
-        const result = await client.research(topic, { sources, depth });
+        // The API takes `maxResults`; `sources` is the friendlier tool-facing
+        // name. There is no server-side `depth` parameter — it was silently
+        // ignored, so it is no longer advertised.
+        const result = await client.research(topic, { maxResults: sources });
         const parts: string[] = [
-          `## Research: ${result.topic}\n`,
+          `## Research: ${result.topic ?? topic}\n`,
           result.summary,
           '\n### Sources\n',
         ];
