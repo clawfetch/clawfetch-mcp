@@ -77,7 +77,7 @@ export function registerResources(server: McpServer, client: ClawFetch): UsageSt
         const text =
           `# ClawFetch Structured Data Extractors\n\n` +
           `${extractors.length} extractors available. Use the \`extract_data\` tool with a URL from a supported domain.\n` +
-          `Cost: $0.003 per extraction.\n\n` +
+          `Cost: $0.008 per extraction.\n\n` +
           `${sections}`;
 
         return {

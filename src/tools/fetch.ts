@@ -26,7 +26,7 @@ export function registerFetchTools(server: McpServer, client: ClawFetch) {
 
   server.tool(
     'render_page',
-    'Render a JavaScript-heavy page using a stealth browser and return clean markdown. Use for SPAs, React/Vue/Angular apps, pages behind JS rendering. Cost: $0.002 per request.',
+    'Render a JavaScript-heavy page using a stealth browser and return clean markdown. Use for SPAs, React/Vue/Angular apps, pages behind JS rendering. Cost: $0.005 per request.',
     {
       url: z.string().url().describe('The URL to render'),
       maxChars: z.number().optional().describe('Maximum characters to return'),

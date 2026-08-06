@@ -8,18 +8,18 @@
 
 ### Web Fetching
 - fetch_url: Fetch any URL as clean markdown. Cost: $0.001
-- render_page: Render JS-heavy pages (SPAs, React, dynamic content) via headless browser. Cost: $0.002
+- render_page: Render JS-heavy pages (SPAs, React, dynamic content) via headless browser. Cost: $0.005
 
 ### Structured Data Extraction
-- extract_data: Extract typed data from 17+ site types (GitHub repos/profiles, npm/PyPI packages, X/Twitter profiles, LinkedIn, YouTube, Product Hunt, Hacker News, Reddit, Crunchbase, Wikipedia). Cost: $0.003
+- extract_data: Extract typed data from 17+ site types (GitHub repos/profiles, npm/PyPI packages, X/Twitter profiles, LinkedIn, YouTube, Product Hunt, Hacker News, Reddit, Crunchbase, Wikipedia). Cost: $0.008
 - list_extractors: List all supported extractor types and their output schemas. Cost: $0.001
 
 ### Research
-- research_topic: Multi-source research with citations — synthesizes information from multiple web sources. Cost: $0.01
+- research_topic: Multi-source research with citations — synthesizes information from multiple web sources. Cost: $0.02
 
 ### Domain Intelligence
-- check_domains: Check availability of specific domain names (up to 10 at once). Cost: $0.002
-- suggest_domains: Generate available domain name suggestions for a concept/keyword. Cost: $0.002
+- check_domains: Check availability of specific domain names (up to 10 at once). Cost: $0.003
+- suggest_domains: Generate available domain name suggestions for a concept/keyword. Cost: $0.003
 
 ### Utility
 - health_check: Check ClawFetch API health status. Free.

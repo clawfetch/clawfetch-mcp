@@ -31,7 +31,7 @@ export function createServer(config: ClawFetchMcpConfig): McpServer {
 
   const server = new McpServer({
     name: 'clawfetch',
-    version: '0.3.0',
+    version: '0.3.1',
   });
 
   // Tools

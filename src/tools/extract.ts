@@ -5,7 +5,7 @@ import type { ClawFetch } from '@clawfetch/sdk';
 export function registerExtractTools(server: McpServer, client: ClawFetch) {
   server.tool(
     'extract_data',
-    'Extract structured data from a URL using a specialized extractor. Supports 17+ site types including GitHub repos/profiles, npm packages, Twitter/X profiles, LinkedIn, YouTube, Product Hunt, Hacker News, Reddit, and more. Cost: $0.003 per request.',
+    'Extract structured data from a URL using a specialized extractor. Supports 17+ site types including GitHub repos/profiles, npm packages, Twitter/X profiles, LinkedIn, YouTube, Product Hunt, Hacker News, Reddit, and more. Cost: $0.008 per request.',
     {
       url: z.string().url().describe('The URL to extract data from (e.g., "https://github.com/openai/openai-python", "https://www.npmjs.com/package/express")'),
       type: z.string().optional().describe('Optional extractor override (e.g. "github", "coingecko"). Auto-detected from the URL when omitted.'),

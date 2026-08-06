@@ -5,7 +5,7 @@ import type { ClawFetch } from '@clawfetch/sdk';
 export function registerDomainTools(server: McpServer, client: ClawFetch) {
   server.tool(
     'check_domains',
-    'Check if one or more domain names are available for registration. Cost: $0.002 per request.',
+    'Check if one or more domain names are available for registration. Cost: $0.008 per request.',
     {
       domains: z.array(z.string()).min(1).max(20).describe('Array of domain names to check (e.g., ["example.com", "myapp.io"])'),
     },
@@ -27,7 +27,7 @@ export function registerDomainTools(server: McpServer, client: ClawFetch) {
 
   server.tool(
     'suggest_domains',
-    'Generate available domain name suggestions based on a keyword or concept. Cost: $0.002 per request.',
+    'Generate available domain name suggestions based on a keyword or concept. Cost: $0.008 per request.',
     {
       query: z.string().describe('Keyword or concept to generate domain suggestions for (e.g., "ai agent marketplace")'),
       tlds: z.array(z.string()).optional().describe('Preferred TLDs to check (e.g., [".com", ".io", ".ai"]). Default: common TLDs.'),

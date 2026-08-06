@@ -5,6 +5,11 @@ All notable changes to `@clawfetch/mcp` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.1] - 2026-08-06
+
+### Changed
+- Tool descriptions, prompts, resources and llms.txt updated to the live ClawFetch price sheet: `render_page` $0.005, `extract_data` $0.008, `parse_document` $0.005, `research_topic` $0.02, `check_domains`/`suggest_domains` $0.003. `fetch_url` and `list_extractors` unchanged at $0.001.
+
 ## [0.3.0] - 2026-08-05
 
 ### Added

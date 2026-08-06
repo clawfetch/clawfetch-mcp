@@ -6,7 +6,7 @@ import type { ClawFetch } from '@clawfetch/sdk';
 export function registerParseTools(server: McpServer, client: ClawFetch) {
   server.tool(
     'parse_document',
-    'Parse an office document (docx, pptx, xlsx, pdf, odt, ods, odp, rtf, epub, csv, doc, ppt) into clean GitHub-Flavored Markdown. Provide a document URL or a local file path. Deterministic Rust converter — headings, tables, and lists preserved. No OCR: scanned/image-only PDFs are rejected. Cost: $0.002 per request.',
+    'Parse an office document (docx, pptx, xlsx, pdf, odt, ods, odp, rtf, epub, csv, doc, ppt) into clean GitHub-Flavored Markdown. Provide a document URL or a local file path. Deterministic Rust converter — headings, tables, and lists preserved. No OCR: scanned/image-only PDFs are rejected. Cost: $0.005 per request.',
     {
       url: z.string().url().optional().describe('URL of the document to download and parse (e.g. "https://example.com/report.docx")'),
       path: z.string().optional().describe('Local file path of the document to parse (read and uploaded as bytes)'),
