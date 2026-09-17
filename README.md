@@ -6,51 +6,9 @@ Gives any MCP-compatible client (Claude Desktop, Cursor, Windsurf, OpenClaw, etc
 
 Payments are handled automatically via the [x402 protocol](https://www.x402.org/) — USDC on Base. No API keys, no billing dashboards.
 
-## ☁️ Hosted Mode (Recommended)
+## Access and payment
 
-Connect directly to the hosted MCP server — no installation required:
-
-**Endpoint:** `https://mcp.clawfetch.ai/mcp`
-
-### Claude Desktop
-
-Add to `claude_desktop_config.json`:
-
-```json
-{
-  "mcpServers": {
-    "clawfetch": {
-      "type": "url",
-      "url": "https://mcp.clawfetch.ai/mcp"
-    }
-  }
-}
-```
-
-### Cursor / Windsurf
-
-Add to your MCP configuration:
-
-```json
-{
-  "mcpServers": {
-    "clawfetch": {
-      "url": "https://mcp.clawfetch.ai/mcp"
-    }
-  }
-}
-```
-
-### OpenClaw
-
-```yaml
-mcp:
-  servers:
-    clawfetch:
-      url: https://mcp.clawfetch.ai/mcp
-```
-
-> **Note:** The hosted server handles x402 payments server-side. Tools that require payment (fetch, render, extract, research) will charge USDC on Base per call. Free tools (health_check, wallet_info, list_extractors) work without payment.
+The public hosted MCP endpoint is retired and returns HTTP 410 Gone. Run the MCP locally using the setup below, or call https://api.clawfetch.ai directly. Paid tool calls use your own USDC-funded wallet on Base; ClawFetch does not subsidize requests.
 
 ## 💻 Self-Hosted Mode
 
@@ -140,7 +98,7 @@ Use `list_extractors` to see all available types with their schema.
 | `CLAWFETCH_TIMEOUT_MS` | No | `60000` | Request timeout in ms |
 | `CLAWFETCH_DEBUG` | No | `false` | Enable debug logging (`1` or `true`) |
 
-\* Required for self-hosted mode. The hosted server at mcp.clawfetch.ai manages its own wallet.
+\* Required. Keep this key in your local configuration; never submit it to the ClawFetch website.
 
 ## Development
 
