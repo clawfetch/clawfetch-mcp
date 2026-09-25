@@ -1,5 +1,7 @@
 # @clawfetch/mcp
 
+[![AllMCPs Verified](https://allmcps.com/api/badge/mcp-6)](https://allmcps.com/mcp/mcp-6?verify=d2c7d26f-b35a-4507-acd2-c29cca9186e4)
+
 MCP (Model Context Protocol) server for [ClawFetch](https://clawfetch.ai) — Web Intelligence API for AI Agents.
 
 Gives any MCP-compatible client (Claude Desktop, Cursor, Windsurf, OpenClaw, etc.) instant access to ClawFetch's web intelligence tools: fetch pages as markdown, render JS-heavy SPAs, extract structured data from 17+ site types, research topics multi-source, and check domain availability.
