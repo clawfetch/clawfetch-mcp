@@ -37,6 +37,8 @@ No API keys. No billing dashboards. Pay-per-use via x402 protocol.
 | CLAWFETCH_BASE_URL | https://api.clawfetch.ai | API endpoint |
 | CLAWFETCH_TRANSPORT | stdio | Transport: stdio or http |
 | CLAWFETCH_PORT | 3001 | HTTP server port |
+| CLAWFETCH_HOST | 127.0.0.1 | HTTP bind address |
+| CLAWFETCH_ALLOWED_HOSTS | localhost,127.0.0.1,[::1] | HTTP Host header allowlist (DNS-rebinding protection) |
 | CLAWFETCH_TIMEOUT_MS | 60000 | Request timeout |
 
 ## Pricing

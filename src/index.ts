@@ -31,11 +31,14 @@ if (transport === 'http') {
   );
 
   const express = (await import('express')).default;
+  const { allowedHostsFromEnv, hostGuard } = await import('./http-security.js');
 
-  const host = process.env.CLAWFETCH_HOST ?? '0.0.0.0';
+  const host = process.env.CLAWFETCH_HOST ?? '127.0.0.1';
   const port = Number(process.env.CLAWFETCH_PORT ?? '3001');
+  const allowedHosts = allowedHostsFromEnv(process.env.CLAWFETCH_ALLOWED_HOSTS);
 
   const app = express();
+  app.use(hostGuard(allowedHosts));
   const transports = new Map<string, StreamableHTTPServerTransport>();
   const startedAt = new Date().toISOString();
 
@@ -106,6 +109,7 @@ if (transport === 'http') {
     console.error(`ClawFetch MCP server (HTTP) listening on ${host}:${port}`);
     console.error(`Health: http://${host}:${port}/health`);
     console.error(`MCP endpoint: http://${host}:${port}/mcp`);
+    console.error(`Allowed Host headers: ${allowedHosts.join(', ')}`);
   });
 } else {
   // Default: stdio transport
