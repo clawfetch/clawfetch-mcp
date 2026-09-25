@@ -40,4 +40,4 @@ No API keys. No billing dashboards. Pay-per-use via x402 protocol.
 | CLAWFETCH_TIMEOUT_MS | 60000 | Request timeout |
 
 ## Pricing
-$1 USDC gets you: 1,000 page fetches, 500 JS renders, 333 data extractions, or 100 research queries.
+$1 USDC gets you: 1,000 page fetches, 500 JS renders, 125 data extractions, or 100 research queries.

@@ -83,9 +83,29 @@ describe('MCP Resource Integration Tests', () => {
       expect(text).toContain('/domains/check');
       expect(text).toContain('/domains/suggest');
       expect(text).toContain('$0.001');
-      expect(text).toContain('$0.010');
       expect(text).toContain('x402');
       expect(text).toContain('USDC');
+    });
+
+    it('matches the live API price sheet', async () => {
+      const result = await client.readResource({ uri: 'clawfetch://pricing' });
+      const text = (result.contents[0] as any).text;
+      const live = {
+        '/fetch': '$0.001', '/render': '$0.005', '/extract': '$0.008', '/research': '$0.020',
+        '/domains/check': '$0.003', '/domains/suggest': '$0.003', '/parse': '$0.005', '/extractors': '$0.001',
+      };
+      for (const [path, price] of Object.entries(live)) expect(text).toContain(`| ${path} | ${price} |`);
+    });
+
+    it('advertises live prices in every paid tool description', async () => {
+      const { tools } = await client.listTools();
+      const live: Record<string, string> = {
+        fetch_url: '$0.001', render_page: '$0.005', extract_data: '$0.008', research_topic: '$0.02',
+        check_domains: '$0.003', suggest_domains: '$0.003', parse_document: '$0.005', list_extractors: '$0.001',
+      };
+      for (const [name, price] of Object.entries(live)) {
+        expect(tools.find(t => t.name === name)?.description).toContain(`Cost: ${price}`);
+      }
     });
 
     it('returns markdown mime type', async () => {

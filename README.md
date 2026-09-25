@@ -73,8 +73,8 @@ This starts a server at `http://localhost:3001/mcp` using the Streamable HTTP tr
 | `render_page` | Render JS-heavy pages (SPAs, React apps) | $0.005 |
 | `extract_data` | Extract structured data from 17+ site types | $0.008 |
 | `research_topic` | Multi-source research with citations | $0.02 |
-| `check_domains` | Check domain name availability | $0.008 |
-| `suggest_domains` | Generate available domain suggestions | $0.008 |
+| `check_domains` | Check domain name availability | $0.003 |
+| `suggest_domains` | Generate available domain suggestions | $0.003 |
 | `parse_document` | Parse office docs (docx/pptx/xlsx/pdf/…) to markdown | $0.005 |
 | `list_extractors` | List supported structured data extractors | $0.001 |
 | `health_check` | Check API health status | Free |

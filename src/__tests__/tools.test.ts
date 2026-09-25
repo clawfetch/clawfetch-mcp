@@ -30,12 +30,17 @@ vi.mock('@clawfetch/sdk', () => {
     async domainsCheck(domains: string[]) {
       return { domains: domains.map(d => ({ domain: d, available: d === 'available.com' })) };
     }
+    lastSuggestOpts: any;
     async domainsSuggest(query: string, opts?: any) {
+      this.lastSuggestOpts = opts;
       return {
         query,
+        generated: 12,
+        checked: 3,
         suggestions: [
           { domain: `${query}.com`, available: true },
           { domain: `${query}.io`, available: false },
+          { domain: `${query}.ai`, available: null, error: 'WHOIS timeout' },
         ],
       };
     }
@@ -180,6 +185,20 @@ describe('MCP Tool Integration Tests', () => {
     expect(text).toContain('myproject.io');
     expect(text).toContain('✅');
     expect(text).toContain('❌');
+  });
+
+  it('suggest_domains passes maxCheck and reports unknown availability honestly', async () => {
+    const result = await client.callTool({
+      name: 'suggest_domains',
+      arguments: { query: 'myproject', tlds: ['.com'], maxCheck: 3 },
+    });
+    const text = (result.content as any[])[0].text;
+    expect(text).toContain('Checked 3 of 12 generated candidates');
+    expect(text).toContain('❔ myproject.ai — unknown (WHOIS timeout)');
+    expect(result.isError).toBeFalsy();
+    const { tools } = await client.listTools();
+    const schema = tools.find(t => t.name === 'suggest_domains')!.inputSchema as any;
+    expect(Object.keys(schema.properties)).toEqual(['query', 'tlds', 'maxCheck']);
   });
 
   it('health_check returns API status', async () => {

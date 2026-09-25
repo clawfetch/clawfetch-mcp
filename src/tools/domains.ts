@@ -5,7 +5,7 @@ import type { ClawFetch } from '@clawfetch/sdk';
 export function registerDomainTools(server: McpServer, client: ClawFetch) {
   server.tool(
     'check_domains',
-    'Check if one or more domain names are available for registration. Cost: $0.008 per request.',
+    'Check if one or more domain names are available for registration. Cost: $0.003 per request.',
     {
       domains: z.array(z.string()).min(1).max(20).describe('Array of domain names to check (e.g., ["example.com", "myapp.io"])'),
     },
@@ -14,8 +14,8 @@ export function registerDomainTools(server: McpServer, client: ClawFetch) {
         const result = await client.domainsCheck(domains);
         const lines: string[] = ['## Domain Availability\n'];
         for (const d of result.domains) {
-          const icon = d.available ? '✅' : '❌';
-          const status = d.available ? 'Available' : 'Taken';
+          const icon = d.available === null ? '❔' : d.available ? '✅' : '❌';
+          const status = d.available === null ? 'Unknown' : d.available ? 'Available' : 'Taken';
           lines.push(`${icon} **${d.domain}** — ${status}${d.error ? ` (${d.error})` : ''}`);
         }
         return { content: [{ type: 'text' as const, text: lines.join('\n') }] };
@@ -27,19 +27,22 @@ export function registerDomainTools(server: McpServer, client: ClawFetch) {
 
   server.tool(
     'suggest_domains',
-    'Generate available domain name suggestions based on a keyword or concept. Cost: $0.008 per request.',
+    'Generate available domain name suggestions based on a keyword or concept. Cost: $0.003 per request.',
     {
       query: z.string().describe('Keyword or concept to generate domain suggestions for (e.g., "ai agent marketplace")'),
       tlds: z.array(z.string()).optional().describe('Preferred TLDs to check (e.g., [".com", ".io", ".ai"]). Default: common TLDs.'),
-      count: z.number().min(1).max(50).optional().describe('Number of suggestions to generate (default: 10)'),
+      maxCheck: z.number().int().min(1).max(50).optional().describe('Maximum candidate domains to check (default: 30, max: 50)'),
     },
-    async ({ query, tlds, count }) => {
+    async ({ query, tlds, maxCheck }) => {
       try {
-        const result = await client.domainsSuggest(query, { tlds, count });
-        const lines: string[] = [`## Domain Suggestions for "${result.query}"\n`];
+        const result = await client.domainsSuggest(query, { tlds, maxCheck });
+        const lines: string[] = [
+          `## Domain Suggestions for "${result.query}"\n`,
+          `Checked ${result.checked} of ${result.generated} generated candidates.\n`,
+        ];
         for (const s of result.suggestions) {
-          const icon = s.available ? '✅' : '❌';
-          lines.push(`${icon} ${s.domain}`);
+          if (s.available === null) lines.push(`❔ ${s.domain} — unknown${s.error ? ` (${s.error})` : ''}`);
+          else lines.push(`${s.available ? '✅' : '❌'} ${s.domain}`);
         }
         return { content: [{ type: 'text' as const, text: lines.join('\n') }] };
       } catch (err) {

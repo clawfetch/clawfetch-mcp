@@ -12,11 +12,12 @@ interface UsageStats {
 /** Endpoint pricing table (USD per request) */
 const ENDPOINT_PRICING: Record<string, { cost: number; description: string; method: string }> = {
   '/fetch': { cost: 0.001, description: 'Fetch URL as clean markdown/text', method: 'POST' },
-  '/render': { cost: 0.002, description: 'JS-render page with stealth browser', method: 'POST' },
-  '/extract': { cost: 0.003, description: 'Extract structured data from supported sites', method: 'POST' },
-  '/research': { cost: 0.01, description: 'Multi-source topic research', method: 'POST' },
-  '/domains/check': { cost: 0.002, description: 'Check domain availability', method: 'POST' },
-  '/domains/suggest': { cost: 0.002, description: 'Generate & check domain suggestions', method: 'POST' },
+  '/render': { cost: 0.005, description: 'JS-render page with stealth browser', method: 'POST' },
+  '/extract': { cost: 0.008, description: 'Extract structured data from supported sites', method: 'POST' },
+  '/research': { cost: 0.02, description: 'Multi-source topic research', method: 'POST' },
+  '/domains/check': { cost: 0.003, description: 'Check domain availability', method: 'POST' },
+  '/domains/suggest': { cost: 0.003, description: 'Generate & check domain suggestions', method: 'POST' },
+  '/parse': { cost: 0.005, description: 'Parse office documents to markdown', method: 'POST' },
   '/extractors': { cost: 0.001, description: 'List available structured data extractors', method: 'GET' },
   '/health': { cost: 0, description: 'API health check (free)', method: 'GET' },
 };
