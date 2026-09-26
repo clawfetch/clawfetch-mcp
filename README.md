@@ -49,7 +49,7 @@ Expose the MCP server over HTTP for remote clients:
 CLAWFETCH_PRIVATE_KEY=0x... CLAWFETCH_TRANSPORT=http CLAWFETCH_PORT=3001 clawfetch-mcp
 ```
 
-This starts a server at `http://localhost:3001/mcp` using the Streamable HTTP transport (MCP spec compliant).
+This starts a server at `http://localhost:3001/mcp` using the Streamable HTTP transport (MCP spec compliant). By default it binds to `127.0.0.1` and accepts only loopback `Host` headers, which blocks DNS-rebinding attacks from web pages. To serve remote clients, set `CLAWFETCH_HOST=0.0.0.0` and list your public hostnames in `CLAWFETCH_ALLOWED_HOSTS`.
 
 #### HTTP Endpoints
 
@@ -95,7 +95,8 @@ Use `list_extractors` to see all available types with their schema.
 | `CLAWFETCH_PRIVATE_KEY` | Yes* | — | Ethereum private key (0x-prefixed) for x402 payments |
 | `CLAWFETCH_BASE_URL` | No | `https://api.clawfetch.ai` | API base URL |
 | `CLAWFETCH_TRANSPORT` | No | `stdio` | Transport: `stdio` or `http` |
-| `CLAWFETCH_HOST` | No | `0.0.0.0` | HTTP server bind address |
+| `CLAWFETCH_HOST` | No | `127.0.0.1` | HTTP server bind address |
+| `CLAWFETCH_ALLOWED_HOSTS` | No | `localhost,127.0.0.1,[::1]` | Comma-separated `Host` header allowlist for the HTTP transport (DNS-rebinding protection) |
 | `CLAWFETCH_PORT` | No | `3001` | HTTP server port |
 | `CLAWFETCH_TIMEOUT_MS` | No | `60000` | Request timeout in ms |
 | `CLAWFETCH_DEBUG` | No | `false` | Enable debug logging (`1` or `true`) |
