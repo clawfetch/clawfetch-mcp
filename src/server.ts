@@ -11,8 +11,10 @@ import { registerResources } from './resources/index.js';
 import { registerPrompts } from './prompts/index.js';
 
 export interface ClawFetchMcpConfig {
-  /** Ethereum private key for x402 payments */
-  privateKey: `0x${string}`;
+  /** Ethereum private key for x402 payments. Optional: without it the server
+   *  still lists tools/resources/prompts (registry sandboxes), and calls fail
+   *  with setup instructions. */
+  privateKey?: `0x${string}`;
   /** Base URL override (default: https://api.clawfetch.ai) */
   baseUrl?: string;
   /** Request timeout in ms (default: 60000 for MCP context) */
@@ -21,13 +23,28 @@ export interface ClawFetchMcpConfig {
   debug?: boolean;
 }
 
-export function createServer(config: ClawFetchMcpConfig): McpServer {
-  const client = new ClawFetch({
-    privateKey: config.privateKey,
-    baseUrl: config.baseUrl,
-    timeoutMs: config.timeoutMs ?? 60_000,
-    debug: config.debug,
+export const MISSING_KEY_MESSAGE =
+  'CLAWFETCH_PRIVATE_KEY is not set. Set it to the 0x-prefixed private key of a ' +
+  'wallet holding USDC on Base to pay for ClawFetch calls via x402.';
+
+// Throws the setup message on any use, so tools report it through their normal error path.
+function keylessClient(): ClawFetch {
+  return new Proxy({} as ClawFetch, {
+    get() {
+      throw new Error(MISSING_KEY_MESSAGE);
+    },
   });
+}
+
+export function createServer(config: ClawFetchMcpConfig): McpServer {
+  const client = config.privateKey
+    ? new ClawFetch({
+        privateKey: config.privateKey,
+        baseUrl: config.baseUrl,
+        timeoutMs: config.timeoutMs ?? 60_000,
+        debug: config.debug,
+      })
+    : keylessClient();
 
   const server = new McpServer({
     name: 'clawfetch',

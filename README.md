@@ -101,7 +101,7 @@ Use `list_extractors` to see all available types with their schema.
 | `CLAWFETCH_TIMEOUT_MS` | No | `60000` | Request timeout in ms |
 | `CLAWFETCH_DEBUG` | No | `false` | Enable debug logging (`1` or `true`) |
 
-\* Required. Keep this key in your local configuration; never submit it to the ClawFetch website.
+\* Required for tool calls. Without it the server still starts and lists its tools, resources and prompts (so registries can inspect it), and every call returns setup instructions. Keep this key in your local configuration; never submit it to the ClawFetch website.
 
 ## Development
 

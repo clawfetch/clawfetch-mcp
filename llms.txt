@@ -26,7 +26,7 @@
 - wallet_info: Show the payment wallet address and balance info. Free.
 
 ## Setup
-Requires CLAWFETCH_PRIVATE_KEY env var — an Ethereum private key (0x-prefixed) for x402 micropayments.
+Requires CLAWFETCH_PRIVATE_KEY env var — an Ethereum private key (0x-prefixed) for x402 micropayments. Without it the server starts and lists tools, but calls return setup instructions.
 Fund the corresponding address with USDC on Base mainnet.
 No API keys. No billing dashboards. Pay-per-use via x402 protocol.
 
