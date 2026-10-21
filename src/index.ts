@@ -9,15 +9,14 @@ const transport = process.env.CLAWFETCH_TRANSPORT ?? 'stdio';
 const version = '0.3.2';
 
 function getConfig() {
-  const privateKey = process.env.CLAWFETCH_PRIVATE_KEY;
+  const privateKey = process.env.CLAWFETCH_PRIVATE_KEY || undefined;
   if (!privateKey) {
-    console.error('Error: CLAWFETCH_PRIVATE_KEY environment variable is required.');
-    console.error('Set it to your Ethereum private key (0x-prefixed hex) for x402 payments.');
-    process.exit(1);
+    console.error('Warning: CLAWFETCH_PRIVATE_KEY is not set. Tools are listed, but calls will fail');
+    console.error('until it is set to your Ethereum private key (0x-prefixed hex) for x402 payments.');
   }
 
   return {
-    privateKey: privateKey as Hex,
+    privateKey: privateKey as Hex | undefined,
     baseUrl: process.env.CLAWFETCH_BASE_URL,
     timeoutMs: process.env.CLAWFETCH_TIMEOUT_MS ? Number(process.env.CLAWFETCH_TIMEOUT_MS) : undefined,
     debug: process.env.CLAWFETCH_DEBUG === '1' || process.env.CLAWFETCH_DEBUG === 'true',
