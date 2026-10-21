@@ -1,6 +1,6 @@
 {
   "name": "@clawfetch/mcp",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "mcpName": "ai.clawfetch/mcp",
   "type": "module",
   "description": "MCP server for AI agents to use ClawFetch — Web Intelligence API with x402 micropayments (USDC on Base)",

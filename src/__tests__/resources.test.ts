@@ -92,7 +92,7 @@ describe('MCP Resource Integration Tests', () => {
       const text = (result.contents[0] as any).text;
       const live = {
         '/fetch': '$0.001', '/render': '$0.005', '/extract': '$0.008', '/research': '$0.020',
-        '/domains/check': '$0.003', '/domains/suggest': '$0.003', '/parse': '$0.005', '/extractors': '$0.001',
+        '/domains/check': '$0.003', '/domains/suggest': '$0.003', '/parse': '$0.005', '/company': '$0.020', '/extractors': '$0.001',
       };
       for (const [path, price] of Object.entries(live)) expect(text).toContain(`| ${path} | ${price} |`);
     });
@@ -101,7 +101,7 @@ describe('MCP Resource Integration Tests', () => {
       const { tools } = await client.listTools();
       const live: Record<string, string> = {
         fetch_url: '$0.001', render_page: '$0.005', extract_data: '$0.008', research_topic: '$0.02',
-        check_domains: '$0.003', suggest_domains: '$0.003', parse_document: '$0.005', list_extractors: '$0.001',
+        check_domains: '$0.003', suggest_domains: '$0.003', parse_document: '$0.005', enrich_company: '$0.02', list_extractors: '$0.001',
       };
       for (const [name, price] of Object.entries(live)) {
         expect(tools.find(t => t.name === name)?.description).toContain(`Cost: ${price}`);

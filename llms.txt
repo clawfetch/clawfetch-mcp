@@ -4,7 +4,7 @@
 > Website: https://clawfetch.ai
 > Transport: stdio (default) | Streamable HTTP (for remote/multi-session)
 
-## Tools (9 total)
+## Tools (11 total)
 
 ### Web Fetching
 - fetch_url: Fetch any URL as clean markdown. Cost: $0.001
@@ -16,6 +16,9 @@
 
 ### Research
 - research_topic: Multi-source research with citations — synthesizes information from multiple web sources. Cost: $0.02
+
+### Company Enrichment
+- enrich_company: Firmographic profile from a company domain: name, description, logo, social profiles, contact emails/phones, address, schema.org Organization, tech stack, key pages. Deterministic, no LLM. Cost: $0.02
 
 ### Domain Intelligence
 - check_domains: Check availability of specific domain names (up to 10 at once). Cost: $0.003

@@ -50,6 +50,17 @@ vi.mock('@clawfetch/sdk', () => {
         { name: 'npm-package', domains: ['npmjs.com'], description: 'Extract npm package info', fields: ['downloads', 'version'] },
       ];
     }
+    async company(domain: string) {
+      return {
+        domain: 'vercel.com', url: 'https://vercel.com/', name: 'Vercel', description: 'Build the web', logo: 'https://vercel.com/logo.png',
+        favicon: null, language: 'en',
+        socials: { twitter: 'https://x.com/vercel', linkedin: null },
+        emails: ['support@vercel.com'], phones: [], addresses: [{ streetAddress: '440 N Barranca Ave', addressLocality: 'Covina', addressRegion: 'CA', postalCode: '91723', addressCountry: 'US' }],
+        organization: null, techStack: [{ name: 'Next.js', category: 'framework', evidence: 'x-powered-by' }],
+        pages: { about: 'https://vercel.com/about', pricing: null },
+        fetchedPages: ['https://vercel.com/'], fetchedAt: '2026-10-21T00:00:00.000Z',
+      };
+    }
     async parse(source: any, opts?: any) {
       return { markdown: '# Parsed Doc\n\n| a | b |', format: opts?.format ?? 'docx', chars: 24 };
     }
@@ -87,6 +98,7 @@ describe('MCP Tool Integration Tests', () => {
 
     expect(toolNames).toEqual([
       'check_domains',
+      'enrich_company',
       'extract_data',
       'fetch_url',
       'health_check',
@@ -133,6 +145,19 @@ describe('MCP Tool Integration Tests', () => {
     expect(text).toContain('Parsed Document (docx, 24 chars)');
     expect(text).toContain('# Parsed Doc');
     expect(result.isError).toBeFalsy();
+  });
+
+  it('enrich_company renders the company profile', async () => {
+    const result = await client.callTool({ name: 'enrich_company', arguments: { domain: 'vercel.com' } });
+    const text = (result.content as any[])[0].text;
+    expect(result.isError).toBeFalsy();
+    expect(text).toContain('## Vercel');
+    expect(text).toContain('twitter: https://x.com/vercel');
+    expect(text).not.toContain('linkedin');
+    expect(text).toContain('support@vercel.com');
+    expect(text).toContain('Next.js (framework)');
+    expect(text).toContain('Covina, CA, 91723, US');
+    expect(text).toContain('about: https://vercel.com/about');
   });
 
   it('parse_document errors without url or path', async () => {

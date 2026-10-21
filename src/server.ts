@@ -6,6 +6,7 @@ import { registerResearchTools } from './tools/research.js';
 import { registerDomainTools } from './tools/domains.js';
 import { registerExtractTools } from './tools/extract.js';
 import { registerParseTools } from './tools/parse.js';
+import { registerCompanyTools } from './tools/company.js';
 import { registerUtilityTools } from './tools/utility.js';
 import { registerResources } from './resources/index.js';
 import { registerPrompts } from './prompts/index.js';
@@ -48,7 +49,7 @@ export function createServer(config: ClawFetchMcpConfig): McpServer {
 
   const server = new McpServer({
     name: 'clawfetch',
-    version: '0.3.2',
+    version: '0.4.0',
   });
 
   // Tools
@@ -57,6 +58,7 @@ export function createServer(config: ClawFetchMcpConfig): McpServer {
   registerDomainTools(server, client);
   registerExtractTools(server, client);
   registerParseTools(server, client);
+  registerCompanyTools(server, client);
   registerUtilityTools(server, client);
 
   // Resources (pricing, extractors, wallet, usage)
