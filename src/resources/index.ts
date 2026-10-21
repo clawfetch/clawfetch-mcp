@@ -18,6 +18,7 @@ const ENDPOINT_PRICING: Record<string, { cost: number; description: string; meth
   '/domains/check': { cost: 0.003, description: 'Check domain availability', method: 'POST' },
   '/domains/suggest': { cost: 0.003, description: 'Generate & check domain suggestions', method: 'POST' },
   '/parse': { cost: 0.005, description: 'Parse office documents to markdown', method: 'POST' },
+  '/company': { cost: 0.02, description: 'Company enrichment from a domain', method: 'POST' },
   '/extractors': { cost: 0.001, description: 'List available structured data extractors', method: 'GET' },
   '/health': { cost: 0, description: 'API health check (free)', method: 'GET' },
 };

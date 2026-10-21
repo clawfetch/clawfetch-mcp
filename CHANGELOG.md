@@ -5,7 +5,10 @@ All notable changes to `@clawfetch/mcp` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.4.0] - 2026-10-21
+
+### Added
+- `enrich_company` tool: company enrichment from a domain via `POST /company` ($0.02). Name, description, logo, social profiles, contact emails/phones, postal address, schema.org Organization, tech stack and key pages. The `clawfetch://pricing` resource lists the route.
 
 ### Changed
 - The server starts without `CLAWFETCH_PRIVATE_KEY`. Tools, resources and prompts are listed so registry sandboxes (Glama, Smithery, Docker) can inspect it; calls return setup instructions until the key is set. Previously it exited on startup.

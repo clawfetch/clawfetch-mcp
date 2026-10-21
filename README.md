@@ -4,7 +4,7 @@
 
 MCP (Model Context Protocol) server for [ClawFetch](https://clawfetch.ai) — Web Intelligence API for AI Agents.
 
-Gives any MCP-compatible client (Claude Desktop, Cursor, Windsurf, OpenClaw, etc.) instant access to ClawFetch's web intelligence tools: fetch pages as markdown, render JS-heavy SPAs, extract structured data from 17+ site types, research topics multi-source, and check domain availability.
+Gives any MCP-compatible client (Claude Desktop, Cursor, Windsurf, OpenClaw, etc.) instant access to ClawFetch's web intelligence tools: fetch pages as markdown, render JS-heavy SPAs, extract structured data from 17+ site types, research topics multi-source, enrich companies from a domain, and check domain availability.
 
 Payments are handled automatically via the [x402 protocol](https://www.x402.org/) — USDC on Base. No API keys, no billing dashboards.
 
@@ -78,6 +78,7 @@ This starts a server at `http://localhost:3001/mcp` using the Streamable HTTP tr
 | `check_domains` | Check domain name availability | $0.003 |
 | `suggest_domains` | Generate available domain suggestions | $0.003 |
 | `parse_document` | Parse office docs (docx/pptx/xlsx/pdf/…) to markdown | $0.005 |
+| `enrich_company` | Company profile from a domain: socials, emails, tech stack, key pages | $0.02 |
 | `list_extractors` | List supported structured data extractors | $0.001 |
 | `health_check` | Check API health status | Free |
 | `wallet_info` | Show payment wallet address | Free |
