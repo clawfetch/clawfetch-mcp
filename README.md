@@ -1,6 +1,8 @@
 # @clawfetch/mcp
 
 [![AllMCPs Verified](https://allmcps.com/api/badge/mcp-6)](https://allmcps.com/mcp/mcp-6?verify=d2c7d26f-b35a-4507-acd2-c29cca9186e4)
+[![clawfetch/clawfetch-mcp MCP server](https://glama.ai/mcp/servers/clawfetch/clawfetch-mcp/badges/score.svg)](https://glama.ai/mcp/servers/clawfetch/clawfetch-mcp)
+[![Gold-402 directory](https://24klabs.ai/badge.svg?resource=https%3A%2F%2Fapi.clawfetch.ai%2F.well-known%2Fx402)](https://24klabs.ai/listing/clawfetch)
 
 MCP (Model Context Protocol) server for [ClawFetch](https://clawfetch.ai) — Web Intelligence API for AI Agents.
 
