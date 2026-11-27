@@ -6,7 +6,7 @@ import { createServer } from './server.js';
 import type { Hex } from 'viem';
 
 const transport = process.env.CLAWFETCH_TRANSPORT ?? 'stdio';
-const version = '0.4.0';
+const version = '0.4.1';
 
 function getConfig() {
   const privateKey = process.env.CLAWFETCH_PRIVATE_KEY || undefined;
@@ -30,14 +30,24 @@ if (transport === 'http') {
   );
 
   const express = (await import('express')).default;
-  const { allowedHostsFromEnv, hostGuard } = await import('./http-security.js');
+  const { allowedHostsFromEnv, hostGuard, bearerAuth, remoteBindProblem } = await import('./http-security.js');
 
   const host = process.env.CLAWFETCH_HOST ?? '127.0.0.1';
   const port = Number(process.env.CLAWFETCH_PORT ?? '3001');
   const allowedHosts = allowedHostsFromEnv(process.env.CLAWFETCH_ALLOWED_HOSTS);
+  const authToken = process.env.CLAWFETCH_AUTH_TOKEN?.trim() || undefined;
+
+  // Tool calls spend the operator wallet: a remote bind without a shared secret
+  // would let anyone who can reach the port pay with it. Refuse to start.
+  const bindProblem = remoteBindProblem(host, authToken);
+  if (bindProblem) {
+    console.error(`[clawfetch-mcp] refusing to start: ${bindProblem}`);
+    process.exit(1);
+  }
 
   const app = express();
   app.use(hostGuard(allowedHosts));
+  app.use('/mcp', bearerAuth(authToken));
   const transports = new Map<string, StreamableHTTPServerTransport>();
   const startedAt = new Date().toISOString();
 
