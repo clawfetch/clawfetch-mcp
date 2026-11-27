@@ -5,6 +5,13 @@ All notable changes to `@clawfetch/mcp` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.2] - 2026-11-27
+
+### Security
+- Dependencies refreshed to clear all open advisories (`npm audit`: 0). Runtime: `@modelcontextprotocol/sdk` 1.32.2, `express` 5.3.0 (`proxy-addr` 2.0.8, `body-parser` 2.4.0, `qs` 6.17.1), `zod` 4.6.7, `viem` 2.58.8 (`ws` 8.21.0), `hono` 4.13.23, `fast-uri` 3.1.9. The minimum ranges in `package.json` are raised so installs can no longer resolve the vulnerable versions.
+- The bundled `@clawfetch/sdk` now carries `@x402/*` 2.32.0 (was 2.4.0), which also drops the old `ajv`/`fast-uri` copy from `dist` (1.7 MB to 120 KB).
+- Docker image now installs 0.4.2; it still pinned 0.4.0, the release without the HTTP bearer token.
+
 ## [0.4.1] - 2026-11-27
 
 ### Security

@@ -49,7 +49,7 @@ export function createServer(config: ClawFetchMcpConfig): McpServer {
 
   const server = new McpServer({
     name: 'clawfetch',
-    version: '0.4.1',
+    version: '0.4.2',
   });
 
   // Tools
