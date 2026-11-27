@@ -5,6 +5,11 @@ All notable changes to `@clawfetch/mcp` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.1] - 2026-11-27
+
+### Security
+- HTTP transport: `/mcp` now requires `Authorization: Bearer <CLAWFETCH_AUTH_TOKEN>` whenever a token is configured, and the server refuses to start on a non-loopback `CLAWFETCH_HOST` without one. Before, the documented remote setup (`CLAWFETCH_HOST=0.0.0.0` + `CLAWFETCH_ALLOWED_HOSTS`) let anyone who could reach the port open a session and call paid tools, each paid from the operator wallet; the Host allowlist only names the server, it never identified the caller. Loopback binds without a token are unchanged. Reported privately by Aeon Security (2026-11-26); thank you.
+
 ## [0.4.0] - 2026-10-21
 
 ### Added

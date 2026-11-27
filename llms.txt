@@ -42,6 +42,7 @@ No API keys. No billing dashboards. Pay-per-use via x402 protocol.
 | CLAWFETCH_PORT | 3001 | HTTP server port |
 | CLAWFETCH_HOST | 127.0.0.1 | HTTP bind address |
 | CLAWFETCH_ALLOWED_HOSTS | localhost,127.0.0.1,[::1] | HTTP Host header allowlist (DNS-rebinding protection) |
+| CLAWFETCH_AUTH_TOKEN | (none) | Bearer token for /mcp over HTTP; required when CLAWFETCH_HOST is not loopback, because tool calls spend the operator wallet |
 | CLAWFETCH_TIMEOUT_MS | 60000 | Request timeout |
 
 ## Pricing
